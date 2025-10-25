@@ -1,0 +1,26 @@
+---
+title: "Código del proyecto"
+format: 
+   html: 
+     theme: cosmo
+     self-contained: true
+editor: visual
+---
+
+```{r}
+library(dplyr)
+```
+
+Primero, se filtra la tabla de datos de los Oscars de forma que únicamente se obtenga la información de las películas ganadoras de la categoría "Best Picture"(mejor película del año).
+
+```{r}
+#Se fija el directorio de trabajo con el objetivo de leer el csv correctamente.
+setwd("C:/Users/alego/OneDrive/Documentos/Proyecto individual/Proyecto_individual_CA0204_C4F535")
+
+base.oscars.completa <- read.csv("data/the_oscar_award.csv")
+base.oscars <- base.oscars.completa %>% 
+  filter(canon_category == "BEST PICTURE",
+         winner == "True")
+View(base.oscars)
+
+```
