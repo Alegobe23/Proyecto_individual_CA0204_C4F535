@@ -9,12 +9,13 @@ editor: visual
 
 ```{r}
 library(dplyr)
+library(readxl)
 ```
 
-Primero, se filtra la tabla de datos de los Oscars de forma que únicamente se obtenga la información de las películas ganadoras de la categoría "Best Picture"(mejor película del año).
+Primero, se filtra la tabla de datos de los Oscars de forma que únicamente se obtenga la información de las películas ganadoras de la categoría "Best Picture" (mejor película del año). Asimismo, se crea la variable que contiene la tabla de datos de la aplicación Letterboxd.
 
 ```{r}
-#Se fija el directorio de trabajo con el objetivo de leer el csv correctamente.
+#Se fija el directorio de trabajo. 
 setwd("C:/Users/alego/OneDrive/Documentos/Proyecto individual/Proyecto_individual_CA0204_C4F535")
 
 base.oscars.completa <- read.csv("data/the_oscar_award.csv")
@@ -23,4 +24,6 @@ base.oscars <- base.oscars.completa %>%
          winner == "True")
 View(base.oscars)
 
+base.letterboxd <- read_excel("data/letterboxd_data.xlsx")
+View(base.letterboxd)
 ```
