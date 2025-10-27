@@ -26,4 +26,41 @@ View(base.oscars)
 
 base.letterboxd <- read_excel("data/letterboxd_data.xlsx")
 View(base.letterboxd)
+
+```
+
+Ahora, se definen los rangos a partir de los cuales las calificaciones de Letterboxd se segmentarán en alto, medio y bajo. Para ello, se decidió utilizar la media y la desviación estándar, de manera que se clasifiquen como bajas todas aquellas calificaciones que estén por debajo de la resta de la media y la desviación estándar; como calificaciones medias se considerarán todas las que estén dentro del rango comprendido por la resta de la media y la desviación estándar, al igual que la suma de la media y la desviación estándar. Finalmente, se catalogarán como altas las calificaciones que estén por arriba de la suma de la media y la desviación estándar.
+
+```{r}
+#Se convierten las columnas correspondientes de la base de Letterboxd al tipo numérico. 
+base.letterboxd$rating <- as.numeric(base.letterboxd$rating)
+base.letterboxd$`watched by` <- as.numeric(base.letterboxd$`watched by`)
+
+#Se realizan los cálculos correspondientes. 
+promedio.calificaciones <- mean(base.letterboxd$rating, na.rm = T)
+promedio.calificaciones
+desviacion.calificaciones <- sd(base.letterboxd$rating)
+desviacion.calificaciones
+limite.bajo <- promedio.calificaciones - desviacion.calificaciones
+limite.bajo
+limite.alto <- promedio.calificaciones + desviacion.calificaciones
+limite.alto
+
+```
+
+```{r}
+#Se crea una función para clasificar las calificaciones. 
+clasificar.calificaciones <- function(calificacion){
+  ifelse(calificacion < limite.bajo, "Low",
+         ifelse(calificacion > limite.alto, "High", "Medium"))
+}
+
+base.letterboxd <- base.letterboxd %>% 
+  mutate(
+    mean = promedio.calificaciones,
+    standard.deviation = desviacion.calificaciones, 
+    clasification.rating = clasificar.calificaciones(rating)
+  )
+View(base.letterboxd)
+
 ```
