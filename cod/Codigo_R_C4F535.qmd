@@ -7,10 +7,15 @@ format:
 editor: visual
 ---
 
+## Librerías
+
 ```{r}
 library(dplyr)
 library(readxl)
+library(ggplot2)
 ```
+
+## Tablas de datos
 
 Primero, se filtra la tabla de datos de los Oscars de forma que únicamente se obtenga la información de las películas ganadoras de la categoría "Best Picture" (mejor película del año). Asimismo, se crea la variable que contiene la tabla de datos de la aplicación Letterboxd.
 
@@ -28,6 +33,8 @@ base.letterboxd <- read_excel("data/letterboxd_data.xlsx")
 View(base.letterboxd)
 
 ```
+
+## Funciones para desarrollar el proyecto
 
 Ahora, se definen los rangos a partir de los cuales las calificaciones de Letterboxd se segmentarán en alto, medio y bajo. Para ello, se decidió utilizar la media y la desviación estándar, de manera que se clasifiquen como bajas todas aquellas calificaciones que estén por debajo de la resta de la media y la desviación estándar; como calificaciones medias se considerarán todas las que estén dentro del rango comprendido por la resta de la media y la desviación estándar, al igual que la suma de la media y la desviación estándar. Finalmente, se catalogarán como altas las calificaciones que estén por arriba de la suma de la media y la desviación estándar.
 
@@ -63,4 +70,20 @@ base.letterboxd <- base.letterboxd %>%
   )
 View(base.letterboxd)
 
+```
+
+## Gráficos
+
+Distribución de las calificaciones de las películas en Letterboxd
+
+```{r}
+ggplot(base.letterboxd, aes(x = rating))+
+  geom_bar(color= "white", fill = "pink")+
+  labs(x = "Calificación", y = "Cantidad", 
+       title = "Distribución de las calificaciones en Letterboxd")+
+  theme_minimal()+
+  theme(plot.title = element_text(hjust = 0.5))+
+  scale_y_continuous(breaks = seq(1, 20, 1))+
+  scale_x_continuous(breaks = seq(0, 5, 0.5))
+  
 ```
