@@ -118,3 +118,21 @@ ggplot(ordenar.decadas, aes(x = decade, y = mean.rating)) +
 #Se guarda el gráfico en la carpeta de resultados. 
 ggsave("C:/Users/alego/OneDrive/Documentos/Proyecto individual/Proyecto_individual_CA0204_C4F535/res/Promedio_calificaciones_Letterboxd_decada.png", width = 8, height = 6, dpi = 300)
 ```
+
+Obras ganadoras al Óscar a Mejor Película según género
+
+```{r}
+ggplot(base.letterboxd, aes(x = genre)) +
+  geom_bar(fill = "pink", width = 0.8)+
+  theme_minimal()+
+  labs(x = "Géneros", y = "Cantidad", 
+       title = "Obras ganadoras al Óscar a Mejor Película según género")+
+  theme(plot.title = element_text(hjust = 0.5),
+        axis.text.x = element_text(angle = 50, hjust = 1),
+        axis.title.y = element_text(margin = margin(r = 15)))+
+  scale_y_continuous(breaks = seq(0, 50, 5))
+
+#Se guarda el gráfico en la carpeta de resultados. 
+ggsave("C:/Users/alego/OneDrive/Documentos/Proyecto individual/Proyecto_individual_CA0204_C4F535/res/Ganadoras_oscar_genero.png", width = 8, height = 6, dpi = 300)
+  
+```
