@@ -163,6 +163,27 @@ ggplot(base.letterboxd, aes(x = clasification.rating)) +
 ggsave("C:/Users/alego/OneDrive/Documentos/Proyecto individual/Proyecto_individual_CA0204_C4F535/res/Clasificacion_calificaciones.png", width = 8, height = 6, dpi = 300)
 ```
 
+Clasificación de las calificaciones: gráfico circular
+
+```{r}
+df.porcentaje <- base.letterboxd %>% 
+  count(clasification.rating) %>% 
+  mutate(porcentaje = (n/nrow(base.letterboxd)) * 100)
+
+ggplot(df.porcentaje, aes(x = "", y= porcentaje, fill = clasification.rating)) +
+  geom_bar(stat="identity", width= 0.5) +
+  coord_polar("y", start=0) +
+  theme_void() + 
+  geom_text(aes(label = paste0(round(porcentaje,1), "%")),
+            position = position_stack(vjust = 0.5)) +
+  scale_fill_manual(values = c("violet", "lightblue", "pink"), 
+                    name = "Clasificaciones")+
+  labs(title = "Distribución de las clasificaciones de las calificaciones en Letterboxd")+
+  theme(plot.title = element_text(hjust = 0.5))
+
+ggsave("C:/Users/alego/OneDrive/Documentos/Proyecto individual/Proyecto_individual_CA0204_C4F535/res/Clasificacion_calificaciones_circular.png", width = 8, height = 6, dpi = 300)
+```
+
 Clasificación de las calificaciones en Letterboxd según el género de las películas
 
 ```{r}
