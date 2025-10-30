@@ -162,3 +162,25 @@ ggplot(base.letterboxd, aes(x = clasification.rating)) +
 
 ggsave("C:/Users/alego/OneDrive/Documentos/Proyecto individual/Proyecto_individual_CA0204_C4F535/res/Clasificacion_calificaciones.png", width = 8, height = 6, dpi = 300)
 ```
+
+Clasificación de las calificaciones en Letterboxd según el género de las películas
+
+```{r}
+generos <- unique(base.letterboxd$genre)
+  
+for(i in generos){
+  datos.utilizar = filter(base.letterboxd, genre == i)
+
+  grafico = ggplot(datos.utilizar, aes(x = clasification.rating)) +
+            geom_bar(fill = "pink", width = 0.3)+
+            theme_minimal()+
+            labs(x = "Clasificación", y = "Cantidad", 
+                 title=paste("Clasificación de las calificaciones del género:",i))+
+            theme(plot.title = element_text(hjust = 0.5),
+                  axis.title.y = element_text(margin = margin(r = 15)),
+                  axis.title.x = element_text(margin = margin(t = 15)))+
+            geom_text(stat = "count", aes(label = after_stat(count)), 
+                      vjust = 1, color = "deeppink", size = 4, fontface = "bold")
+
+ggsave(paste0("C:/Users/alego/OneDrive/Documentos/Proyecto individual/Proyecto_individual_CA0204_C4F535/res/Clasificacion_calificaciones_", i, ".png"), plot = grafico, width = 8, height = 6, dpi = 300) }
+```
