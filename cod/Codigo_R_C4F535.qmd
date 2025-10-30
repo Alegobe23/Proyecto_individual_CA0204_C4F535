@@ -79,16 +79,16 @@ Distribución de las calificaciones de las películas en Letterboxd
 
 ```{r}
 ggplot(base.letterboxd, aes(x = rating))+
-geom_bar(color= "white", fill = "pink")+
-labs(x = "Calificación", y = "Cantidad", 
-     title = "Distribución de las calificaciones en Letterboxd")+
-theme_minimal()+
-theme(plot.title = element_text(hjust = 0.5),
-      axis.title.x = element_text(margin = margin(t = 15)),
-      axis.title.y = element_text(margin = margin(r = 15)))+
-scale_y_continuous(breaks = seq(1, 20, 1))+
-scale_x_continuous(breaks = seq(0, 5, 0.1))+
-geom_text(stat = "count", aes(label = after_stat(count)), 
+  geom_bar(color= "white", fill = "pink")+
+  labs(x = "Calificación", y = "Cantidad", 
+       title = "Distribución de las calificaciones en Letterboxd")+
+  theme_minimal()+
+  theme(plot.title = element_text(hjust = 0.5),
+        axis.title.x = element_text(margin = margin(t = 15)),
+        axis.title.y = element_text(margin = margin(r = 15)))+
+  scale_y_continuous(breaks = seq(1, 20, 1))+
+  scale_x_continuous(breaks = seq(0, 5, 0.1))+
+  geom_text(stat = "count", aes(label = after_stat(count)), 
             vjust = 1, color = "deeppink", size = 3, fontface = "bold")
 
 #Se guarda el gráfico en la carpeta de resultados. 
@@ -135,7 +135,10 @@ ggplot(base.letterboxd, aes(x = genre)) +
   theme(plot.title = element_text(hjust = 0.5),
         axis.text.x = element_text(angle = 50, hjust = 1),
         axis.title.y = element_text(margin = margin(r = 15)))+
-  scale_y_continuous(breaks = seq(0, 50, 5))
+  scale_y_continuous(breaks = seq(0, 50, 5))+
+  geom_text(stat = "count", aes(label = after_stat(count)), 
+            vjust = -0.1, color = "deeppink", size = 3, fontface = "bold")
+  
 
 #Se guarda el gráfico en la carpeta de resultados. 
 ggsave("C:/Users/alego/OneDrive/Documentos/Proyecto individual/Proyecto_individual_CA0204_C4F535/res/Ganadoras_oscar_genero.png", width = 8, height = 6, dpi = 300)
