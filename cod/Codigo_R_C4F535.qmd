@@ -136,3 +136,19 @@ ggplot(base.letterboxd, aes(x = genre)) +
 ggsave("C:/Users/alego/OneDrive/Documentos/Proyecto individual/Proyecto_individual_CA0204_C4F535/res/Ganadoras_oscar_genero.png", width = 8, height = 6, dpi = 300)
   
 ```
+
+Clasificación de las calificaciones
+
+```{r}
+ggplot(base.letterboxd, aes(x = clasification.rating)) +
+  geom_bar(fill = "pink", width = 0.5)+
+  theme_minimal()+
+  labs(x = "Clasificación", y = "Cantidad", 
+       title = "Clasificación de las calificaciones")+
+  theme(plot.title = element_text(hjust = 0.5),
+        axis.title.y = element_text(margin = margin(r = 15)),
+         axis.title.x = element_text(margin = margin(t = 15)))+
+  scale_y_continuous(breaks = seq(0, 90, 5))+
+  geom_text(stat = "count", aes(label = after_stat(count)), 
+            vjust = -0.1, color = "deeppink", size = 4, fontface = "bold") 
+```
